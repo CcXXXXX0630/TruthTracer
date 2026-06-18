@@ -1,6 +1,6 @@
 # Academic Fraud Detection Playbook
 
-Systematic guide for detecting research misconduct across all disciplines.
+Systematic guide for detecting research misconduct across all disciplines.  
 Organized by fraud type, detection method, and signal strength.
 
 ## Fraud Taxonomy
@@ -69,7 +69,7 @@ Organized by fraud type, detection method, and signal strength.
 ## Investigation Workflow
 
 ### Phase 1: Statistical Triage (5 minutes)
-Run the full statistical audit. If 0 RED FLAGs, low priority.
+Run the full statistical audit. If 0 RED FLAGs, low priority.  
 If 2+ RED FLAGs, proceed to Phase 2.
 
 ```
@@ -81,10 +81,10 @@ python scripts/forensics.py report --input audit.json
 Run investigator on the first and corresponding authors.
 
 ```
-python scripts/investigator.py investigate "Author Name" > investigator.json
+python scripts/investigator.py investigate "Author Name" --deep > investigator.json
 ```
 
-### Phase 3: Case Assembly (1 minute)
+### Phase 3: Case Assembly (5 minutes)
 Combine all evidence into a single risk score and report.
 
 ```
@@ -100,12 +100,8 @@ python scripts/case_builder.py audit.json investigator.json --output final_repor
 
 | Weight | Examples |
 |--------|----------|
-| **3 pts** (Critical) | GRIM impossible, Benford non-conformity, p-value mismatch, scale boundary violation, retraction rate >5% |
+| **3 pts** (Critical) | GRIM impossible, Benford non-conformity, p-value mismatch, scale boundary violation |
 | **1 pt** (Warning) | Digit preference, high closure ratio, suspicious velocity, self-citation > 40% |
-
-## Key Discriminator (from live testing)
-
-**Retraction rate is the strongest single signal.** Tested against Yoshitaka Fujii (168/787 = 21.4%) vs Frances Arnold (4/921 = 0.4%) = 50x difference. Raw retraction count is misleading for high-volume researchers. Always score by rate.
 
 ## Known False Positive Patterns
 
@@ -114,7 +110,6 @@ python scripts/case_builder.py audit.json investigator.json --output final_repor
 - p-curve: Small number of p-values (<4 significant)
 - Duplicate Numbers: Standard scale values (e.g., "3" on a 1-5 Likert)
 - Velocity: Large collaborations with many co-authors
-- Post-retraction publishing: High-output honest researchers who self-retract and continue normal career
 
 ## References
 

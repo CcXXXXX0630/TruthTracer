@@ -1,16 +1,19 @@
 cff-version: 1.2.0
 type: software
+title: "TruthTracer: Academic Risk Early-Warning System"
+message: "If you use TruthTracer in your research, please cite it as below."
 authors:
   - given-names: CcXXXXX0630
-repository-code: "https://github.com/CcXXXXX0630/VeritasKit"
-url: "https://github.com/CcXXXXX0630/VeritasKit"
-license: MIT
-version: 1.0.0
-date-released: "2026-06-18"
-title: "VeritasKit — Academic Data Forensics Toolkit"
-message: "If you use this software, please cite it as below."
-abstract: "A statistical forensics toolkit for academic data integrity auditing."
+repository-code: "https://github.com/CcXXXXX0630/TruthTracer"
+url: "https://github.com/CcXXXXX0630/TruthTracer"
+abstract: "An academic risk early-warning system with 3 engines (statistical forensics, network investigation, case building) and 31 detection methods. Implements the RIGID framework for systematic research integrity auditing with traceable evidence chains."
 keywords:
   - academic integrity
-  - data forensics
-  - statistical auditing
+  - research forensics
+  - fraud detection
+  - evidence synthesis
+  - risk assessment
+  - RIGID framework
+license: MIT
+version: 2.1.0
+date-released: "2026-06-18"

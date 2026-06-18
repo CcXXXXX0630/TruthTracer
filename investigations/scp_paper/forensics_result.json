@@ -1,0 +1,292 @@
+{
+  "paper": "Displacing fishmeal with protein derived from stranded methane (Nature Sustainability, 2022)",
+  "timestamp": "2026-06-18T23:29:00.273724",
+  "results": {
+    "benford": {
+      "method": "Benford's Law (First Digit)",
+      "n": 66,
+      "chi2": 27.05,
+      "chi2_flag": "red",
+      "chi2_critical_05": 15.51,
+      "mad": 0.0643,
+      "mad_level": "NON-CONFORMITY — POTENTIAL MANIPULATION",
+      "mad_flag": "red",
+      "detail": {
+        "1": {
+          "observed": 36,
+          "expected": 19.9,
+          "observed_pct": 54.5,
+          "expected_pct": 30.1
+        },
+        "2": {
+          "observed": 8,
+          "expected": 11.6,
+          "observed_pct": 12.1,
+          "expected_pct": 17.6
+        },
+        "3": {
+          "observed": 5,
+          "expected": 8.2,
+          "observed_pct": 7.6,
+          "expected_pct": 12.5
+        },
+        "4": {
+          "observed": 2,
+          "expected": 6.4,
+          "observed_pct": 3.0,
+          "expected_pct": 9.7
+        },
+        "5": {
+          "observed": 4,
+          "expected": 5.2,
+          "observed_pct": 6.1,
+          "expected_pct": 7.9
+        },
+        "6": {
+          "observed": 0,
+          "expected": 4.4,
+          "observed_pct": 0.0,
+          "expected_pct": 6.7
+        },
+        "7": {
+          "observed": 2,
+          "expected": 3.8,
+          "observed_pct": 3.0,
+          "expected_pct": 5.8
+        },
+        "8": {
+          "observed": 3,
+          "expected": 3.4,
+          "observed_pct": 4.5,
+          "expected_pct": 5.1
+        },
+        "9": {
+          "observed": 6,
+          "expected": 3.0,
+          "observed_pct": 9.1,
+          "expected_pct": 4.6
+        }
+      },
+      "verdict": "RED FLAG"
+    },
+    "digit_preference": {
+      "method": "Digit Preference (Terminal Digit Analysis)",
+      "decimal_place": 1,
+      "n": 66,
+      "chi2": 480.97,
+      "zero_pct": 90.9,
+      "five_pct": 0.0,
+      "zero_five_combined_pct": 90.9,
+      "expected_each_pct": 10.0,
+      "flags": [
+        "Digits 0+5 account for 91% (>30%, possible fabrication)",
+        "Digit distribution deviates from uniform (chi2=481.0, p<0.05)"
+      ],
+      "verdict": "RED FLAG"
+    },
+    "grim": [
+      {
+        "method": "GRIM Test",
+        "variable": "Landfill flaring CH4 (tons/day)",
+        "reported_mean": 31,
+        "n": 1000,
+        "decimal_places": 2,
+        "mean_times_n": 31000,
+        "nearest_integer": 31000,
+        "difference": 0,
+        "is_consistent": true,
+        "verdict": "PASS — Mean is mathematically possible",
+        "possible_total_counts": [
+          30998,
+          30999,
+          31000,
+          31001,
+          31002
+        ]
+      },
+      {
+        "method": "GRIM Test",
+        "variable": "Oil & gas flaring CH4 (tons/day)",
+        "reported_mean": 10,
+        "n": 500,
+        "decimal_places": 2,
+        "mean_times_n": 5000,
+        "nearest_integer": 5000,
+        "difference": 0,
+        "is_consistent": true,
+        "verdict": "PASS — Mean is mathematically possible",
+        "possible_total_counts": [
+          4998,
+          4999,
+          5000,
+          5001,
+          5002
+        ]
+      },
+      {
+        "method": "GRIM Test",
+        "variable": "WWTP CH4 (tons/day)",
+        "reported_mean": 0.5,
+        "n": 800,
+        "decimal_places": 2,
+        "mean_times_n": 400.0,
+        "nearest_integer": 400,
+        "difference": 0.0,
+        "is_consistent": true,
+        "verdict": "PASS — Mean is mathematically possible",
+        "possible_total_counts": [
+          398,
+          399,
+          400,
+          401,
+          402
+        ]
+      }
+    ],
+    "sample_size_sanity": [
+      {
+        "method": "Sample-Size Sanity Check",
+        "variable": "Landfill flaring CH4 (tons/day)",
+        "mean": 31,
+        "sd": 50,
+        "n": 1000,
+        "sem": 1.5811,
+        "ci_half_width_95": 3.099,
+        "cv": 1.61,
+        "lower_2sd": -69,
+        "n_roundness": "exact multiple of 10",
+        "issues": [
+          "Coefficient of variation = 1.6 (>1.0, high variability)",
+          "Mean - 2*SD = -69.00 (negative — impossible for non-negative data?)"
+        ],
+        "verdict": "WARNING"
+      },
+      {
+        "method": "Sample-Size Sanity Check",
+        "variable": "Oil & gas flaring CH4 (tons/day)",
+        "mean": 10,
+        "sd": 20,
+        "n": 500,
+        "sem": 0.8944,
+        "ci_half_width_95": 1.7531,
+        "cv": 2.0,
+        "lower_2sd": -30,
+        "n_roundness": "exact multiple of 10",
+        "issues": [
+          "Coefficient of variation = 2.0 (>1.0, high variability)",
+          "Mean - 2*SD = -30.00 (negative — impossible for non-negative data?)"
+        ],
+        "verdict": "WARNING"
+      },
+      {
+        "method": "Sample-Size Sanity Check",
+        "variable": "WWTP CH4 (tons/day)",
+        "mean": 0.5,
+        "sd": 2,
+        "n": 800,
+        "sem": 0.0707,
+        "ci_half_width_95": 0.1386,
+        "cv": 4.0,
+        "lower_2sd": -3.5,
+        "n_roundness": "exact multiple of 10",
+        "issues": [
+          "Coefficient of variation = 4.0 (>2.0, extremely high variability)",
+          "Mean - 2*SD = -3.50 (negative — impossible for non-negative data?)"
+        ],
+        "verdict": "WARNING"
+      }
+    ],
+    "stats_consistency": {
+      "method": "Summary Statistics Consistency",
+      "n_groups": 3,
+      "sd_cv": 0.825,
+      "round_n_ratio": "3/3",
+      "equal_spacing": false,
+      "issues": [
+        "3/3 sample sizes are multiples of 10. Possible fabrication."
+      ],
+      "verdict": "WARNING"
+    },
+    "percentage_sum": {
+      "method": "Percentage Sum Check",
+      "label": "Various reported percentages",
+      "reported_percentages": [
+        90,
+        70,
+        30,
+        17,
+        2,
+        33,
+        14,
+        72,
+        81,
+        35,
+        10,
+        45,
+        60,
+        15,
+        18,
+        50,
+        6,
+        5,
+        22,
+        28
+      ],
+      "total": 703,
+      "expected": 100.0,
+      "deviation": 603.0,
+      "all_equal_split": false,
+      "issues": [
+        "Percentages sum to 703.0%, expected 100.0% (deviation: +603.0pp)"
+      ],
+      "verdict": "WARNING"
+    },
+    "duplicate_numbers": {
+      "method": "Duplicate Number Detection",
+      "n_series": 2,
+      "n_unique_values": 11,
+      "n_duplicates": 0,
+      "n_suspicious": 0,
+      "suspicious_examples": {},
+      "common_increments": [],
+      "issues": [],
+      "verdict": "PASS"
+    },
+    "rounding": {
+      "method": "Rounding Consistency Check",
+      "n_values": 13,
+      "precision_distribution": {
+        "0": 13
+      },
+      "avg_significant_figures": 15.5,
+      "issues": [
+        "All 13 values reported to exactly 0 decimal places — suspiciously uniform (real data has variable precision)",
+        "Average 15.5 significant figures — implausibly precise for most instruments"
+      ],
+      "verdict": "WARNING"
+    },
+    "table_text": {
+      "method": "Table-Text Consistency",
+      "n_pairs": 2,
+      "n_mismatches": 0,
+      "mismatches": [],
+      "issues": [],
+      "verdict": "PASS"
+    }
+  },
+  "flags_summary": {
+    "benford": "RED FLAG",
+    "digit_preference": "RED FLAG",
+    "stats_consistency": "WARNING",
+    "percentage_sum": "WARNING",
+    "duplicate_numbers": "PASS",
+    "rounding": "WARNING",
+    "table_text": "PASS"
+  },
+  "counts": {
+    "RED FLAG": 2,
+    "WARNING": 3,
+    "PASS": 2
+  },
+  "overall_verdict": "SUSPICIOUS — Red flags present"
+}
