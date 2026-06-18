@@ -1,85 +1,129 @@
-# VeritasKit
+<p align="right">
+  <sub>Academic Data Forensics Toolkit · v1.0</sub>
+</p>
 
-**学术数据鉴伪工具包 · Academic Data Forensics Toolkit**
+# 🔍 VeritasKit
 
-> 不是语法检查器，不是查重软件——VeritasKit 做的是统计学家审稿时在脑子里做的事：用数学法则检验数据的内在一致性。
+### *让每一行数据，经得起真相的凝视*
 
----
+<br>
 
-## 为什么需要这个工具？
+> **"统计学家的直觉，现在有了可复现的代码。"**
+>
+> 审稿时你觉得某个表格"看起来太完美了"。VeritasKit 把这种直觉变成数学检验——10 种检测方法，一份审计报告，全程可追溯。
 
-学术造假检测长期依赖人工经验——审稿人凭直觉觉得"这数据不太对"，但说不清哪里不对。VeritasKit 把这种直觉变成了可复现的统计检验。
-
-与单一检测工具（statcheck 只查 APA 格式、GRIM 只查均值粒度）不同，VeritasKit 提供 **10 项检测的集成工作流**——一次审计覆盖从数据输入到统计推断的完整链路。
-
-| 检测 | 查什么 | 信号强度 |
-|------|--------|---------|
-| Benford 定律 | 人为编造的数字首位分布异常 | ★★★ |
-| GRIM 检验 | 均值×样本量≠整数 | ★★★ |
-| SPRITE | 整数量表多变量不一致 | ★★ |
-| p-curve | p-hacking 选择性报告 | ★★☆ |
-| Statcheck | APA 统计量重算不匹配 | ★★ |
-| Bootstrap 一致性 | 描述统计内部矛盾 | ★★ |
-| 效应量一致性 | 效应量-样本量-功效三角不闭合 | ★☆ |
-| 参数审计 | 模型参数分布不合理 | ★★ |
-| Mass Balance | 物料/能量不守恒 | ★★★ |
-| 数字偏好 | 末位数字非均匀分布 | ★☆ |
+<br>
 
 ---
 
-## 方法论特色
+### 📋 一次审计，十条线索
 
-**不是黑箱。** 每项检测输出可审计的中间结果——原始数据→检测统计量→判定阈值→证据链，全程可追溯。
+<p align="center">
+  <img src="https://img.shields.io/badge/检测方法-10-red?style=for-the-badge" alt="10 methods">
+  <img src="https://img.shields.io/badge/假阳性控制-3%20signal%20cross--check-success?style=for-the-badge" alt="cross-check">
+  <img src="https://img.shields.io/badge/输出-结构化审计报告-blue?style=for-the-badge" alt="report">
+  <img src="https://img.shields.io/badge/许可-MIT-green?style=for-the-badge" alt="MIT">
+</p>
 
-**不是指控工具。** 多信号交叉验证（≥3 项 RED FLAG 才标记为 HIGH），降低假阳性。
+| 检测 | 查什么 | 致命性 |
+|:-----|:-------|:------:|
+| **Benford 定律** | 人为编造的数字，首位分布会偏离对数规律 | 🔴🔴🔴 |
+| **GRIM 检验** | 均值×样本量 ≠ 整数 → 至少一个数据是编的 | 🔴🔴🔴 |
+| **Mass Balance** | 输入 ≠ 输出 + 积累 → 物质不守恒 | 🔴🔴🔴 |
+| **SPRITE** | 整数量表多道题的答案互相矛盾 | 🔴🔴 |
+| **p-curve** | p 值分布左偏 → 存在 p-hacking | 🔴🔴 |
+| **Statcheck** | APA 格式报告的统计量，重新算一遍对不上 | 🔴🔴 |
+| **参数审计** | 模型参数的先验分布不可能出现在自然界 | 🔴🔴 |
+| **Bootstrap 一致性** | 描述的均值、SD、范围彼此矛盾 | 🔴 |
+| **效应量一致性** | 效应量—样本量—统计功效三角不闭合 | 🔴 |
+| **数字偏好** | 人工填写的数据末位回避 0 和 5 | 🔴 |
+
+<br>
 
 ---
 
-## 安装
+### 🎯 与单一检测工具的区别
+
+| | statcheck | GRIM test | p-curve app | **VeritasKit** |
+|:--|:--:|:--:|:--:|:--:|
+| 检测数量 | 1 | 1 | 1 | **10** |
+| 交叉验证 | — | — | — | **≥3 信号 = HIGH** |
+| 证据链 | — | — | — | **逐项可追溯** |
+| 批量审计 | — | — | — | **多篇论文并行** |
+
+> **不是 10 个工具的集合，是一个工具运行 10 条规则。**
+
+<br>
+
+---
+
+### ⚡ 开始使用
 
 ```bash
 git clone git@github.com:CcXXXXX0630/VeritasKit.git
-cp -r VeritasKit/* ~/.hermes/skills/research/academic-data-forensics/
-```
-
-Python 脚本可独立使用：
-```bash
 cd VeritasKit/scripts
-python forensics.py --benford --grim --bootstrap your_data.csv
+python forensics.py --all your_data.csv
+```
+
+```text
+████████████████████████████████████████
+   VeritasKit v1.0 · Audit Report
+████████████████████████████████████████
+
+  Benford.......... PASS  (p = 0.42)
+  GRIM............. FLAG  (3 of 12 means fail integer check)
+  Mass Balance..... PASS  (Δ = 1.8% < 5% threshold)
+  p-curve.......... FLAG  (right-skew p < 0.01)
+  Statcheck........ PASS
+  ...
+
+  VERDICT: REVIEW RECOMMENDED (2 RED, 0 AMBER)
+  Evidence chain → audit_report.json
+```
+
+<br>
+
+---
+
+### 📁 结构
+
+```
+VeritasKit/
+├── scripts/
+│   ├── forensics.py       ← 10 检测统一入口
+│   ├── investigator.py    ← 批量审计编排
+│   └── case_builder.py    ← 证据链生成
+├── references/             方法论文档
+├── templates/              数据模板
+├── SKILL.md                Hermes Agent 定义
+├── LICENSE                 MIT
+└── CITATION.cff            学术引用
 ```
 
 ---
 
-## 文件结构
-
-```
-├── SKILL.md            Hermes Agent skill 定义
-├── scripts/            核心检测引擎
-│   ├── forensics.py    10 项检测统一入口
-│   ├── investigator.py 批量审计编排
-│   └── case_builder.py 证据链生成
-├── references/         方法论文档
-└── templates/          数据模板
-```
-
----
-
-## 引用
+### 📖 引用
 
 ```bibtex
 @software{VeritasKit,
-  author = {CcXXXXX0630},
   title = {VeritasKit: Academic Data Forensics Toolkit},
+  author = {CcXXXXX0630},
   year = {2026},
-  publisher = {GitHub},
   url = {https://github.com/CcXXXXX0630/VeritasKit}
 }
 ```
 
-## 致谢
+### 🙏 致谢
 
-部分检测方法基于已发表的统计检验文献（Benford 1938, Brown & Heathers 2017 GRIM test, Simonsohn et al. 2014 p-curve, Nuijten et al. 2016 statcheck）。VeritasKit 的独创贡献在于**集成工作流、证据链生成和批量审计编排**。
+检测方法基于已发表文献：Benford (1938), Brown & Heathers (2017) GRIM, Simonsohn et al. (2014) p-curve, Nuijten et al. (2016) statcheck。  
+VeritasKit 的独创贡献在**集成工作流、多信号交叉验证和证据链自动生成**。
 
-## 许可证
+### ⚠️ 声明
 
-MIT · [CcXXXXX0630](https://github.com/CcXXXXX0630)
+统计异常 ≠ 学术不端。真实数据偶尔偏离预期。请结合领域知识判断，勿单凭一项检测下结论。
+
+---
+
+<p align="center">
+  <sub>MIT License · <a href="https://github.com/CcXXXXX0630">CcXXXXX0630</a></sub>
+</p>
