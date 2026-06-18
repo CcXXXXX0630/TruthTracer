@@ -2,140 +2,147 @@
   <sub>Academic Risk Early-Warning System · v2.1</sub>
 </p>
 
+<p align="center">
+  <a href="README_CN.md">🇨🇳 中文版</a>
+</p>
+
 # 🔍 TruthTracer
 
-### *不问论文是不是造假。只问证据链从哪里开始断裂。*
+### *Don't ask whether a paper is fraudulent. Ask where the evidence stops supporting the claims.*
 
 <br>
 
 > **"The most damaging phrase in science isn't 'this is fraudulent' — it's 'the evidence for this claim stops here.'"**
 >
-> TruthTracer 是一个学术风险预警系统。它不宣判"造假"——它系统性地审计研究逻辑、数据、统计、引用网络和可复现性，精确标定证据链从哪个环节开始失去支撑。
+> TruthTracer is an academic risk early-warning system. It does not declare papers "fraudulent" — it systematically audits research logic, data, statistics, citation networks, and reproducibility to pinpoint exactly where the evidence chain begins to break. Think of it as a reviewer, research integrity officer, and publisher investigator rolled into one.
 
 <br>
 
 ---
 
-### 🏗️ 三引擎架构
+### 🏗️ Three-Engine Architecture
 
 <p align="center">
-  <img src="https://img.shields.io/badge/检测方法-31-red?style=for-the-badge" alt="31 methods">
-  <img src="https://img.shields.io/badge/引擎-3个-blue?style=for-the-badge" alt="3 engines">
-  <img src="https://img.shields.io/badge/证据链-全程可追溯-success?style=for-the-badge" alt="traceable">
-  <img src="https://img.shields.io/badge/许可-MIT-green?style=for-the-badge" alt="MIT">
+  <img src="https://img.shields.io/badge/methods-31-red?style=for-the-badge" alt="31 methods">
+  <img src="https://img.shields.io/badge/engines-3-blue?style=for-the-badge" alt="3 engines">
+  <img src="https://img.shields.io/badge/evidence-traceable-success?style=for-the-badge" alt="traceable">
+  <img src="https://img.shields.io/badge/license-MIT-green?style=for-the-badge" alt="MIT">
 </p>
 
 ```
-      论文 / 作者 / 数据集
+     PAPER / AUTHOR / DATASET
               │
     ┌─────────┼─────────┐
     ▼         ▼         ▼
   STATS    NETWORK    CASE
   Engine   Engine    Builder
-  (21种)   (10种)    (评分)
+  (21)     (10)      (scoring)
     │         │         │
     └─────────┼─────────┘
               ▼
-    风险评级报告（证据链可追溯）
+   Risk Assessment Report
+   (traceable evidence chain)
 ```
 
-| 引擎 | 方法数 | 核心能力 |
-|:------|:-----:|:--------|
-| **STATS** | 21 | 数学不可能性检测（GRIM/Benford/p-curve/SPRITE/Statcheck...） |
-| **NETWORK** | 10 | 开放 API 扫描：撤稿率、引文圈、合著闭包、发表速度... |
-| **CASE** | — | 信号加权 + 论文类型感知 + 证据链生成 |
+| Engine | Methods | What It Detects |
+|:-------|:-------:|:----------------|
+| **STATS** | 21 | Mathematical impossibilities in reported data (GRIM, Benford, p-curve, SPRITE, Statcheck...) |
+| **NETWORK** | 10 | Open API scans: retraction rate, citation cartels, co-author closure, publication velocity... |
+| **CASE** | — | Signal weighting + paper-type awareness + evidence chain generation |
 
 <br>
 
 ---
 
-### 📊 风险分层
+### 📊 Risk Stratification
 
-| 等级 | 标准 | 行动 |
-|:------|:-----|:-----|
-| 🔴 **CRITICAL** | 2+ 数学不可能性 | 上报伦理委员会，申请原始数据 |
-| 🟠 **HIGH** | 1 不可能性 或 多强信号 | 申请原始数据，标记统计审查 |
-| 🟡 **MEDIUM** | 统计异常，无不可能 | 要求澄清，交叉核验附录 |
-| 🟢 **LOW** | 轻微模式异常 | 标准同行评审即�� |
-| ⚪ **CLEAN** | 无相关信号 | 正常推进 |
+| Level | Criteria | Action |
+|:------|:---------|:-------|
+| 🔴 **CRITICAL** | ≥2 mathematical impossibilities | Escalate to ethics committee; request raw data |
+| 🟠 **HIGH** | 1 impossibility OR multiple strong signals | Request raw data; flag for statistical review |
+| 🟡 **MEDIUM** | Statistical anomalies, no impossibilities | Request clarification; cross-check supplements |
+| 🟢 **LOW** | Minor pattern anomalies only | Standard peer review sufficient |
+| ⚪ **CLEAN** | No concerning signals | Proceed with confidence |
 
-> **LOW与MEDIUM的边界是TruthTracer最重要的区分。**
-
-<br>
-
----
-
-### ✅ 真案验证
-
-| 对象 | 已知真相 | TruthTracer 判定 |
-|:------|:--------|:---------------|
-| Yoshitaka Fujii | 183篇撤稿（史上最多） | **HIGH RISK** — 撤稿率 21.4%，撤稿后仍发96篇 |
-| Frances Arnold | 诺贝尔化学奖 2018，4篇自撤 | MEDIUM RISK — 自撤论文仍继续发表100篇 |
-| 干净的经济学论文 | 无争议 | **LOW RISK** — 自动识别为"经济模型"，Benford折扣70% |
+> **The boundary between LOW and MEDIUM is the most important distinction this tool makes.**
 
 <br>
 
 ---
 
-### 🧬 RIGID 框架实现
+### ✅ Live Test Validation
 
-基于 Monash University (2024) 的 [RIGID 框架](https://doi.org/10.1016/j.eclinm.2024.102717)：
-
-| RIGID 原则 | TruthTracer 实现 |
-|:-----------|:---------------|
-| 系统化评估 | 3引擎 × 31方法自动运行 |
-| 多维度 | 统计 + 网络 + 文本 |
-| 证据可追溯 | 每个 RED FLAG → 具体数据点 + 方法 |
-| 风险分层 | 5级系统 + 论文类型上下文 |
-| 不替代人类判断 | 每份报告标注"需要人类判断" |
+| Subject | Known Truth | TruthTracer Verdict |
+|:--------|:------------|:-------------------|
+| Yoshitaka Fujii | 183 retractions (most in history) | **HIGH RISK** — 21.4% retraction rate, 96 papers post-retraction |
+| Frances Arnold | 2018 Nobel Prize, 4 self-retractions | MEDIUM RISK — self-retracted papers, continued publishing |
+| Clean economics paper | No controversy | **LOW RISK** — auto-detected as "economic model", Benford discounted 70% |
 
 <br>
 
 ---
 
-### ⚡ 快速开始
+### 🧬 RIGID Framework
+
+Implements the [RIGID framework](https://doi.org/10.1016/j.eclinm.2024.102717) (Monash University, 2024):
+
+| RIGID Principle | TruthTracer Implementation |
+|:----------------|:--------------------------|
+| Systematic assessment | 3 engines × 31 methods, fully automated |
+| Multi-dimensional | Statistical + network + textual signals |
+| Evidence traceability | Every RED FLAG → specific data point + method |
+| Risk stratification | 5-tier system with paper-type context |
+| Not a replacement for judgment | Every report states "Human judgment required" |
+
+<br>
+
+---
+
+### ⚡ Quick Start
 
 ```bash
-# 1. 统计审计
+# 1. Statistical audit
 python scripts/forensics.py audit --paper data.json > audit.json
 
-# 2. 作者调查
+# 2. Author investigation
 python scripts/investigator.py investigate "Author Name" --deep > investigator.json
 
-# 3. 证据整合
+# 3. Evidence synthesis
 python scripts/case_builder.py audit.json investigator.json \
     --text extracted_text.txt --output report.md
 ```
 
 <p align="center">
-  <b>29/31 方法仅需 Python 标准库，无需 pip install。</b>
+  <b>29 of 31 methods use Python stdlib only — no pip install required.</b>
 </p>
 
 <br>
 
 ---
 
-### 📁 结构
+### 📁 Structure
 
 ```
 TruthTracer/
 ├── scripts/
-│   ├── forensics.py          ← 21 种统计检测 (78 KB)
-│   ├── investigator.py       ← 10 种网络信号 (36 KB)
-│   ├── case_builder.py       ← 证据链生成 (19 KB)
-│   ├── extract_pdf.py        ← PDF 文本提取
-│   └── pysprite_vendor.py    ← GRIM + SPRITE 实现
-├── examples/                   示例审计报告
-├── investigations/             真实案件调查档案
-├── references/                 方法论文档
-├── SKILL.md                    Hermes Agent 定义
-├── LICENSE                     MIT
-└── CITATION.cff                学术引用
+│   ├── forensics.py          ← 21 statistical checks (78 KB)
+│   ├── investigator.py       ← 10 network signals (36 KB)
+│   ├── case_builder.py       ← evidence chain builder (19 KB)
+│   ├── extract_pdf.py        ← PDF text extraction
+│   └── pysprite_vendor.py    ← GRIM + SPRITE implementation
+├── examples/                    Sample audit reports
+├── investigations/              Real case files
+├── references/                  Method documentation
+├── SKILL.md                     Hermes Agent definition
+├── README.md                    English
+├── README_CN.md                 Chinese
+├── LICENSE                      MIT
+└── CITATION.cff                 Citation metadata
 ```
 
 ---
 
-### 📖 引用
+### 📖 Cite
 
 ```bibtex
 @software{TruthTracer,
@@ -146,15 +153,15 @@ TruthTracer/
 }
 ```
 
-### 🙏 致谢
+### 🙏 Acknowledgments
 
-- RIGID 框架：Monash University (2024), doi:10.1016/j.eclinm.2024.102717
-- GRIM + SPRITE 实现：基于 QuentinAndre/pysprite (MIT)
-- 29/31 方法为原创实现
+- RIGID framework: Monash University (2024), doi:10.1016/j.eclinm.2024.102717
+- GRIM + SPRITE: adapted from QuentinAndre/pysprite (MIT)
+- 29 of 31 methods are original implementations
 
-### ⚠️ 声明
+### ⚠️ Disclaimer
 
-TruthTracer 输出是**风险信号**，不是**定罪证据**。所有报告需要人类判断。
+TruthTracer outputs **risk signals**, not **verdicts**. All reports require human judgment.
 
 ---
 
