@@ -3,31 +3,22 @@
 </p>
 
 <p align="center">
-  <a href="README_CN.md">🇨🇳 中文版</a>
+  <a href="README_CN.md">中文版</a>
 </p>
 
-# 🔍 TruthTracer
+# TruthTracer
 
-### *Don't ask whether a paper is fraudulent. Ask where the evidence stops supporting the claims.*
-
-<br>
-
-> **"The most damaging phrase in science isn't 'this is fraudulent' — it's 'the evidence for this claim stops here.'"**
->
-> TruthTracer is an academic risk early-warning system. It does not declare papers "fraudulent" — it systematically audits research logic, data, statistics, citation networks, and reproducibility to pinpoint exactly where the evidence chain begins to break. Think of it as a reviewer, research integrity officer, and publisher investigator rolled into one.
-
-<br>
+*The most damaging phrase in science isn't "this is fraudulent." It's "the evidence for this claim stops here."*
 
 ---
 
-### 🏗️ Three-Engine Architecture
+TruthTracer finds that boundary. It audits the logic, the numbers, the citation networks, the reproducibility — and flags where things stop adding up. It doesn't hand down verdicts. It builds evidence chains. Think reviewer meets research integrity officer meets publisher investigator, but in code.
 
-<p align="center">
-  <img src="https://img.shields.io/badge/methods-31-red?style=for-the-badge" alt="31 methods">
-  <img src="https://img.shields.io/badge/engines-3-blue?style=for-the-badge" alt="3 engines">
-  <img src="https://img.shields.io/badge/evidence-traceable-success?style=for-the-badge" alt="traceable">
-  <img src="https://img.shields.io/badge/license-MIT-green?style=for-the-badge" alt="MIT">
-</p>
+---
+
+## What's under the hood
+
+Three engines. 31 methods. Zero API keys.
 
 ```
      PAPER / AUTHOR / DATASET
@@ -35,114 +26,88 @@
     ┌─────────┼─────────┐
     ▼         ▼         ▼
   STATS    NETWORK    CASE
-  Engine   Engine    Builder
-  (21)     (10)      (scoring)
+  (21)     (10)     (scoring)
     │         │         │
     └─────────┼─────────┘
               ▼
-   Risk Assessment Report
-   (traceable evidence chain)
+   Risk report with traceable evidence
 ```
 
-| Engine | Methods | What It Detects |
-|:-------|:-------:|:----------------|
-| **STATS** | 21 | Mathematical impossibilities in reported data (GRIM, Benford, p-curve, SPRITE, Statcheck...) |
-| **NETWORK** | 10 | Open API scans: retraction rate, citation cartels, co-author closure, publication velocity... |
-| **CASE** | — | Signal weighting + paper-type awareness + evidence chain generation |
+**Stats engine** (21 methods). Finds math that doesn't work — GRIM violations, Benford failures, p-curve clumping, SPRITE inconsistencies, statcheck mismatches. The kind of thing a sharp-eyed statistician catches at 2 AM during peer review.
 
-<br>
+**Network engine** (10 signals). Pulls from OpenAlex, CrossRef, PubMed. Retraction rates, citation rings, co-author closure, publication velocity. No API keys needed — just an internet connection.
+
+**Case builder**. Combines signals with some common sense. Economic models get Benford checks discounted. Clinical trials get survival checks boosted. Two mathematical impossibilities = CRITICAL. Zero = ceiling at MEDIUM.
 
 ---
 
-### 📊 Risk Stratification
+## How it classifies risk
 
-| Level | Criteria | Action |
-|:------|:---------|:-------|
-| 🔴 **CRITICAL** | ≥2 mathematical impossibilities | Escalate to ethics committee; request raw data |
-| 🟠 **HIGH** | 1 impossibility OR multiple strong signals | Request raw data; flag for statistical review |
-| 🟡 **MEDIUM** | Statistical anomalies, no impossibilities | Request clarification; cross-check supplements |
-| 🟢 **LOW** | Minor pattern anomalies only | Standard peer review sufficient |
-| ⚪ **CLEAN** | No concerning signals | Proceed with confidence |
+| Level | What it means | What to do |
+|:------|:--------------|:-----------|
+| CRITICAL | At least 2 things that are mathematically impossible | Get the raw data. Now. |
+| HIGH | 1 impossibility, or several strong signals | Request raw data. Flag for stats review. |
+| MEDIUM | Anomalies, but nothing impossible | Ask the authors. Check the supplements. |
+| LOW | Minor quirks | Peer review should catch these. |
+| CLEAN | Nothing concerning | Move on. |
 
-> **The boundary between LOW and MEDIUM is the most important distinction this tool makes.**
-
-<br>
+HIGH and MEDIUM are where this tool earns its keep. CRITICAL is rare — most papers with real problems land in HIGH.
 
 ---
 
-### ✅ Live Test Validation
+## Real-world tests
 
-| Subject | Known Truth | TruthTracer Verdict |
-|:--------|:------------|:-------------------|
-| Yoshitaka Fujii | 183 retractions (most in history) | **HIGH RISK** — 21.4% retraction rate, 96 papers post-retraction |
-| Frances Arnold | 2018 Nobel Prize, 4 self-retractions | MEDIUM RISK — self-retracted papers, continued publishing |
-| Clean economics paper | No controversy | **LOW RISK** — auto-detected as "economic model", Benford discounted 70% |
+We ran TruthTracer on three cases with known outcomes:
 
-<br>
+**Yoshitaka Fujii** — holds the record for most retractions in history (183). TruthTracer: HIGH RISK. 21.4% retraction rate, 96 papers published after his first retraction. The network engine caught what the stats engine couldn't: the post-retraction publishing pattern.
 
----
+**Frances Arnold** — 2018 Nobel Prize in Chemistry. Four self-retracted papers. TruthTracer: MEDIUM RISK. Self-retraction is actually a positive signal — it means she caught her own errors. The tool correctly distinguished a fraudster from a scientist who made mistakes and owned them.
 
-### 🧬 RIGID Framework
-
-Implements the [RIGID framework](https://doi.org/10.1016/j.eclinm.2024.102717) (Monash University, 2024):
-
-| RIGID Principle | TruthTracer Implementation |
-|:----------------|:--------------------------|
-| Systematic assessment | 3 engines × 31 methods, fully automated |
-| Multi-dimensional | Statistical + network + textual signals |
-| Evidence traceability | Every RED FLAG → specific data point + method |
-| Risk stratification | 5-tier system with paper-type context |
-| Not a replacement for judgment | Every report states "Human judgment required" |
-
-<br>
+**Clean economics paper** — no controversy. TruthTracer: LOW RISK. Auto-detected as "economic model," automatically discounted the Benford check (economic data often follows power laws). No false alarm.
 
 ---
 
-### ⚡ Quick Start
+## Where this comes from
+
+TruthTracer implements the [RIGID framework](https://doi.org/10.1016/j.eclinm.2024.102717) — a 2024 paper from Monash University that laid out five principles for research integrity auditing. All 31 methods map to one of the RIGID dimensions. 29 are original implementations. GRIM and SPRITE borrow from QuentinAndre/pysprite (MIT license).
+
+---
+
+## Quick start
 
 ```bash
-# 1. Statistical audit
+# 1. Audit the numbers
 python scripts/forensics.py audit --paper data.json > audit.json
 
-# 2. Author investigation
+# 2. Investigate the author
 python scripts/investigator.py investigate "Author Name" --deep > investigator.json
 
-# 3. Evidence synthesis
+# 3. Put it together
 python scripts/case_builder.py audit.json investigator.json \
     --text extracted_text.txt --output report.md
 ```
 
-<p align="center">
-  <b>29 of 31 methods use Python stdlib only — no pip install required.</b>
-</p>
-
-<br>
+29 of 31 methods run on Python stdlib. No pip install needed.
 
 ---
 
-### 📁 Structure
+## Files
 
 ```
-TruthTracer/
-├── scripts/
-│   ├── forensics.py          ← 21 statistical checks (78 KB)
-│   ├── investigator.py       ← 10 network signals (36 KB)
-│   ├── case_builder.py       ← evidence chain builder (19 KB)
-│   ├── extract_pdf.py        ← PDF text extraction
-│   └── pysprite_vendor.py    ← GRIM + SPRITE implementation
-├── examples/                    Sample audit reports
-├── investigations/              Real case files
-├── references/                  Method documentation
-├── SKILL.md                     Hermes Agent definition
-├── README.md                    English
-├── README_CN.md                 Chinese
-├── LICENSE                      MIT
-└── CITATION.cff                 Citation metadata
+scripts/
+  forensics.py           stats engine (78 KB)
+  investigator.py        network engine (36 KB)
+  case_builder.py        evidence chain builder (19 KB)
+  extract_pdf.py         PDF text extraction
+  pysprite_vendor.py     GRIM + SPRITE implementation
+examples/                sample audit reports
+investigations/          real case files
+references/              methodology docs
 ```
 
 ---
 
-### 📖 Cite
+## Cite
 
 ```bibtex
 @software{TruthTracer,
@@ -153,18 +118,12 @@ TruthTracer/
 }
 ```
 
-### 🙏 Acknowledgments
+## Disclaimer
 
-- RIGID framework: Monash University (2024), doi:10.1016/j.eclinm.2024.102717
-- GRIM + SPRITE: adapted from QuentinAndre/pysprite (MIT)
-- 29 of 31 methods are original implementations
-
-### ⚠️ Disclaimer
-
-TruthTracer outputs **risk signals**, not **verdicts**. All reports require human judgment.
+TruthTracer flags risks. It does not convict. Every report needs a human to read it.
 
 ---
 
 <p align="center">
-  <sub>MIT License · <a href="https://github.com/CcXXXXX0630">CcXXXXX0630</a></sub>
+  <sub>MIT · <a href="https://github.com/CcXXXXX0630">CcXXXXX0630</a></sub>
 </p>
