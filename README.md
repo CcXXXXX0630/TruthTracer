@@ -41,8 +41,8 @@
 | 5 | **Statcheck** | APA格式统计量错误 | 心理学、社会科学 | 从APA文本中提取并重新计算p值、t值、F值 |
 | 6 | **Bootstrap 一致性** | 描述统计不自洽 | 均值/SD/范围矛盾 | 重采样检验统计量是否可能来自声称的参数 |
 | 7 | **效应量一致性** | 效应量与样本量不匹配 | Meta分析、综述 | 统计功效与效应量、样本量的三角约束 |
-| 8 | **蒙特卡洛参数审计** | 模型参数不合理 | 环境模型、工程模拟 | 参数空间的全局敏感性分析与反向校准 |
-| 9 | **Mass Balance** | 物料/能量不守恒 | 环境工程、化工 | 物质守恒定律——输入必须等于输出+积累 |
+| 8 | **蒙特卡洛参数审计** | 模型参数不合理 | 工程模型与模拟 | 参数空间的全局敏感性分析与反向校准 |
+| 9 | **Mass Balance** | 物料/能量不守恒 | 工程与化工 | 物质守恒定律——输入必须等于输出+积累 |
 | 10 | **数字偏好分析** | 末位/末两位数字分布异常 | 任何人工输入的数据 | 人类对特定数字的非随机偏好（如末位回避0/5） |
 
 ---
@@ -78,9 +78,9 @@ VeritasKit/
 │   ├── detection-playbook.md     # 🔥 十项检测完整操作手册（必读）
 │   ├── sample-audit-guide.md     # 审计报告模板与判据阈值
 │   └── domains/                  # 领域专项指南
-│       ├── environmental.md      # 环境科学专属检测策略
-│       ├── medicine.md           # 医学研究检测重点
-│       └── psychology.md         # 心理学/社会科学专项
+      # 学术期刊专属检测策略
+│   ├── medicine.md           # 医学研究检测重点
+│   └── psychology.md         # 心理学/社会科学专项
 ├── scripts/
 │   ├── forensics.py              # 核心检测引擎（可直接调用）
 │   ├── investigator.py           # 批量审计编排器
@@ -99,7 +99,7 @@ VeritasKit/
 | 检测方法数量 | **10** | 1 | 1 | 1 |
 | 批量审计 | ✅ | ❌ | ❌ | ❌ |
 | 中文支持 | ✅ | ❌ | ❌ | ❌ |
-| 环境科学专项 | ✅ | ❌ | ❌ | ❌ |
+| 学术期刊专项 | ✅ | ❌ | ❌ | ❌ |
 | AI Agent 集成 | ✅ Hermes | ❌ | ❌ | ❌ |
 | 证据链生成 | ✅ | ❌ | ❌ | ❌ |
 | 开源 | ✅ MIT | ✅ | ✅ | ✅ |
@@ -112,7 +112,7 @@ VeritasKit/
 
 ```bibtex
 @software{VeritasKit,
-  author = {Xiong, Can},
+  author = {CcXXXXX0630},
   title = {VeritasKit: Academic Data Forensics Toolkit},
   year = {2026},
   publisher = {GitHub},
@@ -172,5 +172,5 @@ VeritasKit/
 ---
 
 <div align="center">
-  <sub>Created with ❤️ by <a href="https://github.com/CcXXXXX0630">熊璨 (CcXXXXX0630)</a> · Powered by <a href="https://hermes-agent.nousresearch.com">Hermes Agent</a></sub>
+  <sub>Created with ❤️ by <a href="https://github.com/CcXXXXX0630">CcXXXXX0630</a> · Powered by <a href="https://hermes-agent.nousresearch.com">Hermes Agent</a></sub>
 </div>
