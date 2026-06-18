@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+title: VeritasKit — Academic Data Forensics Toolkit
+message: "If you use VeritasKit in your research, please cite it as below."
+type: software
+authors:
+  - family-names: Xiong
+    given-names: Can
+    email: xiongcan0630@xauat.edu.cn
+    orcid: ""
+repository-code: "https://github.com/CcXXXXX0630/VeritasKit"
+url: "https://github.com/CcXXXXX0630/VeritasKit"
+abstract: "A statistical forensics toolkit for academic data integrity auditing. Implements 10 detection methods including Benford's Law, GRIM, SPRITE, p-curve analysis, statcheck, bootstrap consistency checks, effect size validation, Monte Carlo parameter auditing, mass balance verification, and digit preference analysis."
+keywords:
+  - academic integrity
+  - data forensics
+  - Benford's Law
+  - p-curve
+  - statistical auditing
+  - research misconduct detection
+license: MIT
+version: 1.0.0
+date-released: "2026-06-18"
