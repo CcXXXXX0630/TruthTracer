@@ -124,6 +124,12 @@ TruthTracer flags risks. It does not convict. Every report needs a human to read
 
 ---
 
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=CcXXXXX0630/TruthTracer&type=Date)](https://star-history.com/#CcXXXXX0630/TruthTracer&Date)
+
+---
+
 <p align="center">
   <sub>MIT · <a href="https://github.com/CcXXXXX0630">CcXXXXX0630</a></sub>
 </p>
