@@ -92,18 +92,18 @@ TruthTracer/
 
 ## Name Disambiguation (v2.2)
 
-Chinese common names cause 30-40% contamination in OpenAlex author profiles. TruthTracer filters by research domain keywords before analysis. Verified on Zhang Haihan (张海涵): 195→124 papers after filtering out 71 misattributed papers (chicken ovaries, carbon anodes, plant fungi).
+Common names cause 30-40% contamination in author profile databases. TruthTracer filters by research domain keywords before analysis, removing misattributed papers from unrelated fields. Without this filter, author profiles can contain >30% of someone else's work, making every network signal unreliable. TruthTracer fixes it before analysis starts.
 
 ## Key Findings from Live Testing
 
 | Test Subject | Result | Key Signal |
 |-------------|--------|------------|
-| Yoshitaka Fujii (183 retractions) | **HIGH** | Retraction rate 21.4% |
-| Frances Arnold (Nobel 2018) | MEDIUM | Retraction rate 0.4% (self-retractions) |
-| Nature Sustainability SCP paper | **LOW** | Economic model → Benford downgraded |
-| BT retracted paper #5 (Ashok Pandey et al.) | **CRITICAL** | 118 combined retractions across 8 authors |
-| RCR sludge LCA paper | **LOW** | LCA model → Benford downgraded |
-| Zhang Haihan (西安建大) | **LOW** | 0 retractions, 0 tortured phrases, 36% name contamination |
+| Known fraudster (183 retractions) | **HIGH** | Retraction rate 21.4% |
+| Nobel laureate (4 self-retractions) | MEDIUM | Retraction rate 0.4% (self-retractions) |
+| Clean economics paper | **LOW** | Economic model → Benford downgraded |
+| Retracted paper with multi-author collusion | **CRITICAL** | Network engine caught collusion pattern |
+| Clean LCA paper | **LOW** | LCA model detected, correctly downgraded |
+| Clean researcher with common name | **LOW** | 0 retractions, 0 tortured phrases after disambiguation |
 
 ## Quick Start
 
