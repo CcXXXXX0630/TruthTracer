@@ -1,5 +1,5 @@
 <p align="right">
-  <sub>学术风险预警系统 · v2.1</sub>
+  <sub>学术风险预警系统 · v2.2</sub>
 </p>
 
 <p align="center">
@@ -12,97 +12,92 @@
 
 ---
 
-TruthTracer 找的就是这个断点。它审计研究逻辑、数据、统计、引用网络、可复现性——然后告诉你哪里不对劲。不给结论，只给证据链。像一个审稿人加科研诚信官加调查员的合体，只不过是一段代码。
+TruthTracer 找的就是这个断点。七个检测引擎。30+ 种方法。只问一个问题：证据链从哪里开始对不上？
 
 ---
 
-## 里面有什么
+## v2.2 新特性
 
-三个引擎。31 种方法。不需要 API key。
+四个新引擎。中文同名作者消歧。模块化架构——每个引擎独立运行。
 
-```
-       论文 / 作者 / 数据集
-              │
-    ┌─────────┼─────────┐
-    ▼         ▼         ▼
-  统计引擎   网络引擎   案件构建器
-  (21种)    (10种)     (智能评分)
-    │         │         │
-    └─────────┼─────────┘
-              ▼
-     风险报告（证据可追溯）
-```
+| 引擎 | 方法数 | 查什么 |
+|------|:-----:|--------|
+| **统计** | 21 | 数学上不成立的东西——GRIM、Benford、p-curve、SPRITE、statcheck |
+| **网络** | 10 | 撤稿史、引文圈、论文工厂签名 |
+| **文本** | 6 | 折磨短语（Cabanac 2023）、AI痕迹、香肠切片 |
+| **附录** | 5 | 缺失补充材料、不可访问数据、不可复现声明 |
+| **引用** | 3 | 引用已撤稿论文、伪造引用、自引滥用 |
+| **分布** | 2 | 过度/不足离散、方差异常齐性 |
+| **预印本** | 2 | 结局指标切换、摘要版本差异 |
 
-**统计引擎**（21种方法）。找数学上不可能的东西——GRIM 检验不过、Benford 定律偏离、p-curve 扎堆、SPRITE 不一致、statcheck 重算不对。就那种审稿人半夜盯着表格突然觉得"不对"的事，只不过它自动扫。
-
-**网络引擎**（10种信号）。从 OpenAlex、CrossRef、PubMed 拉数据。撤稿率、引文圈、合著闭包、发稿速度。不用 API key，能上网就行。
-
-**案件构建器**。把信号拼在一起，带点常识。经济学论文自动调低 Benford 权重。临床试验自动调高生存分析权重。两项数学不可能 = 危急。零项 = 最多判到中危。
+评分器把所有信号融合，带论文类型感知。经济模型自动降 Benford 权重。临床试验自动升生存分析权重。综述跳过统计检测。
 
 ---
 
-## 风险怎么分
+## 信号严重度
 
-| 等级 | 什么意思 | 怎么办 |
-|:------|:--------|:------|
-| 危急 | 至少两项数学上不可能 | 拿原始数据。立刻。 |
-| 高危 | 一项不可能，或多项强信号 | 申请原始数据，标记统计审查 |
-| 中危 | 有异常，但没到不可能 | 问作者，查附录 |
-| 低危 | 小毛病 | 正常审稿能逮住 |
-| 清洁 | 没发现问题 | 过 |
+| 级别 | 权重 | 示例 | 含义 |
+|------|:----:|------|------|
+| 危急 | 3分 | GRIM不可能、均值超量程、事件数>风险人数 | 数学上不可能。近乎确定造假。 |
+| 强 | 2分 | Benford偏离>0.03、10+折磨短语、撤稿率>10% | 高度可疑。 |
+| 中 | 1分 | 数字偏好、SD齐性、2+折磨短语 | 值得细看。 |
+| 弱 | 0.5分 | 取整均匀、1条折磨短语 | 通常是假阳性。 |
 
-这个工具最值钱的地方是区分高危和中危。真正有问题的论文，大多数落在高危而不是危急。
-
----
-
-## 真刀真枪测过
-
-三轮真案验证：
-
-**藤井善隆** —— 史上撤稿最多的研究者，183 篇。测出：高危。撤稿率 21.4%，被撤后还发了 96 篇。网络引擎抓到了统计引擎漏掉的东西：撤稿后的持续发表模式。
-
-**弗朗西斯·阿诺德** —— 2018 年诺贝尔化学奖得主，4 篇主动撤稿。测出：中危。主动撤稿其实是正面信号——说明她自己发现错误自己纠正。工具正确区分了一个造假惯犯和一个敢于认错的科学家。
-
-**一篇干净的经济学论文** —— 无争议。测出：低危。自动识别为"经济模型"，Benford 检测自动折扣。没误报。
+铁律：零项危急信号 → 风险上限为中危。只有数学不可能性才构成近乎确定的造假证据。
 
 ---
 
-## 理论根基
+## 同名消歧为什么重要
 
-TruthTracer 实现了莫纳什大学 2024 年发表的 [RIGID 框架](https://doi.org/10.1016/j.eclinm.2024.102717)——一套科研诚信审计的五原则体系。31 种方法覆盖 RIGID 全部维度。29 种是原创实现。GRIM 和 SPRITE 借用了 QuentinAndre/pysprite（MIT 许可）。
+一个叫张海涵的研究者，OpenAlex 里有 195 篇论文。TruthTracer 按研究领域过滤后剩 124 篇。被筛掉的 71 篇包括鸡卵巢研究、碳阳极研究、植物真菌研究——同名不同人。不过滤的话，作者档案里 36% 是别人的成果。这种污染会让每个网络信号都不可靠。TruthTracer 在分析前就把这层噪音洗掉。
+
+---
+
+## 真案测试
+
+| 对象 | 已知事实 | 判定 | 关键信号 |
+|------|---------|------|---------|
+| 藤井善隆 | 183篇撤稿 | 高危 | 撤稿率21.4% |
+| 弗朗西斯·阿诺德 | 2018诺贝尔奖 | 中危 | 0.4%，全为主动撤稿 |
+| 干净经济学论文 | 无争议 | 低危 | 经济模型 → Benford降权 |
+| BT撤稿论文（Pandey等） | 8位作者，118篇合计撤稿 | 危急 | 网络引擎捕到合谋 |
+| RCR污泥LCA论文 | 无争议 | 低危 | LCA模型识别，正确降权 |
+| 张海涵（西安建大） | 无污点 | 低危 | 0撤稿，0折磨短语 |
 
 ---
 
 ## 上手
 
 ```bash
-# 1. 审计数据
-python scripts/forensics.py audit --paper data.json > audit.json
+# 全引擎审计
+python scripts/scorer.py --stats audit.json --network investigator.json --output report.md
 
-# 2. 调查作者
-python scripts/investigator.py investigate "作者姓名" --deep > investigator.json
+# 纯文本检查
+python scripts/text_engine.py check suspicious.txt
 
-# 3. 拼起来
-python scripts/case_builder.py audit.json investigator.json \
-    --text extracted_text.txt --output report.md
+# 作者调查
+python scripts/network_engine.py investigate "作者姓名" --deep
 ```
-
-31 种方法里 29 种只用 Python 标准库，无需 pip install。
 
 ---
 
-## 目录结构
+## 文件结构
 
 ```
 scripts/
-  forensics.py           统计引擎（78 KB）
-  investigator.py        网络引擎（36 KB）
-  case_builder.py        证据链构建器（19 KB）
-  extract_pdf.py         PDF 文本提取
-  pysprite_vendor.py     GRIM + SPRITE 实现
-examples/                示例审计报告
-investigations/          真实案件档案
-references/              方法论文档
+  scorer.py              证据融合 + 报告生成
+  stats_engine.py        21项统计检测
+  network_engine.py      10项作者网络信号
+  text_engine.py         折磨短语、AI痕迹、香肠切片
+  citation_engine.py     引用已撤稿论文、伪造引用
+  distribution_engine.py 过度/不足离散检测
+  preprint_engine.py     结局切换、摘要差异
+  supplement_engine.py   附录完整性审计
+  forensics.py           完整统计引擎（详细版）
+  investigator.py        完整网络引擎（详细版）
+  case_builder.py        遗留案件构建器
+  pysprite_vendor.py     GRIM+SPRITE（改编自QuentinAndre/pysprite, MIT）
+  extract_pdf.py         PDF提取
 ```
 
 ---
@@ -114,13 +109,18 @@ references/              方法论文档
   title = {TruthTracer: Academic Risk Early-Warning System},
   author = {CcXXXXX0630},
   year = {2026},
+  version = {2.2.0},
   url = {https://github.com/CcXXXXX0630/TruthTracer}
 }
 ```
 
-## 声明
+### 致谢
 
-TruthTracer 给出的是风险信号，不是判决书。每份报告都需要人来看。
+RIGID框架：莫纳什大学 (2024)。折磨短语检测：改编自 Cabanac et al. (2021)。GRIM+SPRITE：改编自 QuentinAndre/pysprite (MIT)。
+
+### 声明
+
+TruthTracer 给出的是风险信号，不是判决书。每份报告都需要人来读。
 
 ---
 

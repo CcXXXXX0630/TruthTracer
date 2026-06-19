@@ -6,14 +6,16 @@ authors:
   - given-names: CcXXXXX0630
 repository-code: "https://github.com/CcXXXXX0630/TruthTracer"
 url: "https://github.com/CcXXXXX0630/TruthTracer"
-abstract: "An academic risk early-warning system with 3 engines (statistical forensics, network investigation, case building) and 31 detection methods. Implements the RIGID framework for systematic research integrity auditing with traceable evidence chains."
+abstract: "An academic risk early-warning system with 7 detection engines and 30+ methods. Audits research logic, data, statistics, text integrity, citation networks, and reproducibility — generating traceable evidence chains. Implements the RIGID framework (Monash University, 2024)."
 keywords:
   - academic integrity
   - research forensics
   - fraud detection
+  - tortured phrases
   - evidence synthesis
   - risk assessment
   - RIGID framework
+  - paper mill detection
 license: MIT
-version: 2.1.0
+version: 2.2.0
 date-released: "2026-06-18"
